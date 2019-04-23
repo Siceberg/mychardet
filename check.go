@@ -54,6 +54,69 @@ func Mostlike(data []byte) string {
 	return ""
 }
 
+// Mostlikein - 本函数返回指定编码格式中文本最可能的编码格式
+func Mostlikein(data []byte, detectNames []string) string {
+	var lbDetects, lpDetects []detect
+
+	for _, detectName := range detectNames {
+		switch detectName {
+		default:
+			panic("unexpected type %T")
+		case "utf8":
+			lbDetects = append(lbDetects, &utf8{})
+		case "utf16BE":
+			lbDetects = append(lbDetects, &utf16BE{})
+		case "utf16LE":
+			lbDetects = append(lbDetects, &utf16LE{})
+		case "utf32BE":
+			lbDetects = append(lbDetects, &utf32BE{})
+		case "utf32LE":
+			lbDetects = append(lbDetects, &utf32LE{})
+		case "hzgb2312":
+			lbDetects = append(lbDetects, &hzgb2312{})
+		case "gbk":
+			lpDetects = append(lpDetects, &gbk{})
+		case "big5":
+			lpDetects = append(lpDetects, &big5{})
+		case "eucJP":
+			lpDetects = append(lpDetects, &eucJP{})
+		case "shiftJIS":
+			lpDetects = append(lpDetects, &shiftJIS{})
+		case "iso2022JP":
+			lpDetects = append(lpDetects, &iso2022JP{})
+		case "eucKR":
+			lpDetects = append(lpDetects, &eucKR{})
+		case "gb18030":
+			lpDetects = append(lpDetects, &gb18030{})
+		}
+	}
+
+	if s := checkbom(data); s != "" {
+		return s
+	}
+	lb := check(data, lbDetects)
+	if len(lb) > 0 {
+		x, y := -1, -100.0
+		for i, l := range lb {
+			if r := l.Priority(); y < r {
+				x, y = i, r
+			}
+		}
+		return lb[x].String()
+	}
+	lp := check(data, lpDetects)
+	if len(lp) > 0 {
+		x, y := -1, -100.0
+		for i, l := range lp {
+			if r := l.Priority(); y < r {
+				x, y = i, r
+			}
+		}
+		return lp[x].String()
+	}
+	return ""
+}
+
 // Possible - 本函数返回文本所有可能的编码格式，可能性越高越靠前
 func Possible(data []byte) []string {
 	if s := checkbom(data); s != "" {
