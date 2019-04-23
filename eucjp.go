@@ -1,6 +1,6 @@
 package chardet
 
-var dict_ej = map[uint32]int{
+var dictEJ = map[uint32]int{
 	0x0000A4CE: 0x00, // の
 	0x0000A1BC: 0x01, // ー
 	0x0000A4CB: 0x02, // に
@@ -119,7 +119,7 @@ func (e *eucJP) Priority() float64 {
 	f := 0.0
 	if e.ttls > 0 {
 		for i, x := range e.hold[:19] {
-			k := 100*float64(x)/float64(e.ttls) - freq_jp[i]
+			k := 100*float64(x)/float64(e.ttls) - freqJP[i]
 			if k >= 0 {
 				f += k
 			} else {
@@ -131,7 +131,7 @@ func (e *eucJP) Priority() float64 {
 	}
 	if e.ttld > 0 {
 		for i, x := range e.hold[19:] {
-			k := 100*float64(x)/float64(e.ttls) - freq_jp[i+19]
+			k := 100*float64(x)/float64(e.ttls) - freqJP[i+19]
 			if k >= 0 {
 				f += k
 			} else {
@@ -145,12 +145,12 @@ func (e *eucJP) Priority() float64 {
 }
 
 func (e *eucJP) count() {
-	if i, ok := dict_ej[uint32(e.curr)]; ok {
+	if i, ok := dictEJ[uint32(e.curr)]; ok {
 		e.hold[i]++
 		e.ttls++
 	}
 	if e.last > 0 {
-		if i, ok := dict_ej[uint32(e.last<<16)|uint32(e.curr)]; ok {
+		if i, ok := dictEJ[uint32(e.last<<16)|uint32(e.curr)]; ok {
 			e.hold[i]++
 			e.ttld++
 		}

@@ -1,6 +1,6 @@
 package chardet
 
-var dict_sj = map[uint32]int{
+var dictSJ = map[uint32]int{
 	0x000082CC: 0x00, // の
 	0x0000815B: 0x01, // ー
 	0x000082C9: 0x02, // に
@@ -74,12 +74,12 @@ func (s *shiftJIS) Feed(x byte) bool {
 		if s.byte != 0 {
 			return
 		}
-		if i, ok := dict_sj[uint32(s.curr)]; ok {
+		if i, ok := dictSJ[uint32(s.curr)]; ok {
 			s.hold[i]++
 			s.ttls++
 		}
 		if s.last > 0 {
-			if i, ok := dict_sj[uint32(s.last<<16)|uint32(s.curr)]; ok {
+			if i, ok := dictSJ[uint32(s.last<<16)|uint32(s.curr)]; ok {
 				s.hold[i]++
 				s.ttld++
 			}
@@ -110,7 +110,7 @@ func (s *shiftJIS) Priority() float64 {
 	f := 0.0
 	if s.ttls > 0 {
 		for i, x := range s.hold[:19] {
-			k := 100*float64(x)/float64(s.ttls) - freq_jp[i]
+			k := 100*float64(x)/float64(s.ttls) - freqJP[i]
 			if k >= 0 {
 				f += k
 			} else {
@@ -122,7 +122,7 @@ func (s *shiftJIS) Priority() float64 {
 	}
 	if s.ttld > 0 {
 		for i, x := range s.hold[19:] {
-			k := 100*float64(x)/float64(s.ttls) - freq_jp[i+19]
+			k := 100*float64(x)/float64(s.ttls) - freqJP[i+19]
 			if k >= 0 {
 				f += k
 			} else {

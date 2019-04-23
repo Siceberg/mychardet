@@ -1,6 +1,6 @@
 package chardet
 
-var freq_ch = []float64{
+var freqCH = []float64{
 	11.096582,  // 的
 	3.6654361,  // 一
 	2.6676806,  // 在
@@ -83,7 +83,7 @@ var freq_ch = []float64{
 	0.53594371, // 天
 }
 
-var freq_jp = []float64{
+var freqJP = []float64{
 	13.519689, // の
 	7.8064841, // ー
 	7.0557495, // に
@@ -136,7 +136,7 @@ var freq_jp = []float64{
 	1.9939955, // デジ
 }
 
-var freq_kr = []float64{
+var freqKR = []float64{
 	12.029239, // 이
 	9.3873130, // 다
 	6.8661594, // 는

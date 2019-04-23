@@ -31,7 +31,7 @@ func (u *utf8) Feed(x byte) bool {
 		}
 	} else {
 		if x >= 0x80 && x <= 0xBF {
-			u.byte -= 1
+			u.byte--
 			return true
 		}
 	}

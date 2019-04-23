@@ -1,6 +1,6 @@
 package chardet
 
-var dict_b5 = map[uint32]int{
+var dictB5 = map[uint32]int{
 	0xAABA: 0x00, // 的
 	0xA440: 0x01, // 一
 	0xA662: 0x02, // 在
@@ -123,7 +123,7 @@ func (b *big5) Priority() float64 {
 	}
 	f := 0.0
 	for i, x := range b.hold {
-		k := 100*float64(x)/float64(b.ttls) - freq_ch[i]
+		k := 100*float64(x)/float64(b.ttls) - freqCH[i]
 		if k >= 0 {
 			f += k
 		} else {
@@ -134,7 +134,7 @@ func (b *big5) Priority() float64 {
 }
 
 func (b *big5) count() {
-	if i, ok := dict_b5[uint32(b.rune)]; ok {
+	if i, ok := dictB5[uint32(b.rune)]; ok {
 		b.hold[i]++
 		b.ttls++
 	}

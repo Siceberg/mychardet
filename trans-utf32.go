@@ -1,8 +1,9 @@
 package chardet
 
 import (
-	"code.google.com/p/go.text/transform"
-	. "unicode/utf8"
+	utf8pkg "unicode/utf8"
+
+	"golang.org/x/text/transform"
 )
 
 // 提供给用户使用的并发安全的编解码器接口
@@ -110,7 +111,7 @@ func (u *u8t32b) Transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err err
 	ld, ls := len(dst), len(src)
 	rs := []rune{}
 	for nSrc < ls {
-		r, n := DecodeRune(src[nSrc:])
+		r, n := utf8pkg.DecodeRune(src[nSrc:])
 		if n == 1 && r == 0xFFFD {
 			if nSrc+1 >= ls {
 				if !atEOF {
@@ -152,7 +153,7 @@ func (u *u8t32l) Transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err err
 	ld, ls := len(dst), len(src)
 	rs := []rune{}
 	for nSrc < ls {
-		r, n := DecodeRune(src[nSrc:])
+		r, n := utf8pkg.DecodeRune(src[nSrc:])
 		if n == 1 && r == 0xFFFD {
 			if nSrc+1 >= ls {
 				if !atEOF {
