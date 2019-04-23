@@ -1,6 +1,6 @@
 package chardet
 
-var dict_kr = map[uint32]int{
+var dictKR = map[uint32]int{
 	0x0000C0CC: 0x00, // 이
 	0x0000B4D9: 0x01, // 다
 	0x0000B4C2: 0x02, // 는
@@ -93,7 +93,7 @@ func (e *eucKR) Priority() float64 {
 	f := 0.0
 	if e.ttls > 0 {
 		for i, x := range e.hold[:18] {
-			k := 100*float64(x)/float64(e.ttls) - freq_kr[i]
+			k := 100*float64(x)/float64(e.ttls) - freqKR[i]
 			if k >= 0 {
 				f += k
 			} else {
@@ -105,7 +105,7 @@ func (e *eucKR) Priority() float64 {
 	}
 	if e.ttld > 0 {
 		for i, x := range e.hold[18:] {
-			k := 100*float64(x)/float64(e.ttls) - freq_kr[i+18]
+			k := 100*float64(x)/float64(e.ttls) - freqKR[i+18]
 			if k >= 0 {
 				f += k
 			} else {
@@ -119,12 +119,12 @@ func (e *eucKR) Priority() float64 {
 }
 
 func (e *eucKR) count() {
-	if i, ok := dict_kr[uint32(e.curr)]; ok {
+	if i, ok := dictKR[uint32(e.curr)]; ok {
 		e.hold[i]++
 		e.ttls++
 	}
 	if e.last > 0 {
-		if i, ok := dict_kr[uint32(e.last<<16)|uint32(e.curr)]; ok {
+		if i, ok := dictKR[uint32(e.last<<16)|uint32(e.curr)]; ok {
 			e.hold[i]++
 			e.ttld++
 		}

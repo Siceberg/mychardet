@@ -62,7 +62,7 @@ func (h *hzgb2312) Priority() float64 {
 	}
 	f := 0.0
 	for i, x := range h.hold {
-		k := 100*float64(x)/float64(h.ttls) - freq_ch[i]
+		k := 100*float64(x)/float64(h.ttls) - freqCH[i]
 		if k >= 0 {
 			f += k
 		} else {
@@ -73,7 +73,7 @@ func (h *hzgb2312) Priority() float64 {
 }
 
 func (h *hzgb2312) count() {
-	if i, ok := dict_gb[uint32(h.rune)]; ok {
+	if i, ok := dictGB[uint32(h.rune)]; ok {
 		h.hold[i]++
 		h.ttls++
 	}

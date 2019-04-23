@@ -1,36 +1,33 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
+# Created by https://www.gitignore.io/api/go,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=go,visualstudiocode
 
-# Folder config file
-Desktop.ini
+### Go ###
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
+# Test binary, built with `go test -c`
+*.test
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
 
-# =========================
-# Operating System Files
-# =========================
+### Go Patch ###
+/vendor/
+/Godeps/
 
-# OSX
-# =========================
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-.DS_Store
-.AppleDouble
-.LSOverride
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
 
-# Icon must ends with two \r.
-Icon
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
+# End of https://www.gitignore.io/api/go,visualstudiocode

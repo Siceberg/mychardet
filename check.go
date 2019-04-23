@@ -26,7 +26,7 @@ func check(data []byte, lst []detect) []detect {
 	return lst
 }
 
-// 本函数返回文本最可能的编码格式
+// Mostlike - 本函数返回文本最可能的编码格式
 func Mostlike(data []byte) string {
 	if s := checkbom(data); s != "" {
 		return s
@@ -54,7 +54,7 @@ func Mostlike(data []byte) string {
 	return ""
 }
 
-// 本函数返回文本所有可能的编码格式，可能性越高越靠前
+// Possible - 本函数返回文本所有可能的编码格式，可能性越高越靠前
 func Possible(data []byte) []string {
 	if s := checkbom(data); s != "" {
 		return []string{s}
